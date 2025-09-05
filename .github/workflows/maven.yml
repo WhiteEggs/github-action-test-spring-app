@@ -52,13 +52,13 @@ jobs:
           path: ./deploy
         
       - name: Stop Tomcat
-        run: systemctl stop tomcat10
+        run: sudo systemctl stop tomcat10
         
       - name: Deploy new WAR
         run: cp ./deploy/github-action-test-spring-app.war /var/lib/tomcat10/webapps
         
       - name: Start Tomcat
-        run: systemctl start tomcat10
+        run: sudo systemctl start tomcat10
         
       # - uses: actions/checkout@v4
       # - name: Copy war to server
