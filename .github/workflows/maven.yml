@@ -31,7 +31,37 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-
+      
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: myapp
+        path: target/myapp.war
+        
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
     #   uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+  deploy:
+    runs-on: tomcat-server
+    needs: build
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: myapp
+          path: ./deploy
+        
+      - name: Stop Tomcat
+        run: systemctl stop tomcat10
+        
+      - name: Deploy new WAR
+        run: cp ./deploy/myapp.war /opt/tomcat/webapps/
+        
+      - name: Start Tomcat
+        run: systemctl start tomcat10
+        
+      # - uses: actions/checkout@v4
+      # - name: Copy war to server
+      #   run: scp target/myapp.jar user@server:/path/to/deploy/
+      # - name: Restart app
+      #   run: ssh user@server 'systemctl restart myapp.service'
