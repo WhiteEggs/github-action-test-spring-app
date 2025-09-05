@@ -55,7 +55,7 @@ jobs:
         run: sudo systemctl stop tomcat10
         
       - name: Deploy new WAR
-        run: cp ./deploy/github-action-test-spring-app.war /var/lib/tomcat10/webapps
+        run: sudo cp ./deploy/github-action-test-spring-app.war /var/lib/tomcat10/webapps
         
       - name: Start Tomcat
         run: sudo systemctl start tomcat10
