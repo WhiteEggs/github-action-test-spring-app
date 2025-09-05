@@ -33,10 +33,10 @@ jobs:
       run: mvn -B package --file pom.xml
       
     - name: Upload artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.6.2
       with:
         name: myapp
-        path: target/myapp.war
+        path: target/github-action-test-spring-app.war
         
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
@@ -46,7 +46,7 @@ jobs:
     needs: build
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5.0.0
         with:
           name: myapp
           path: ./deploy
@@ -55,7 +55,7 @@ jobs:
         run: systemctl stop tomcat10
         
       - name: Deploy new WAR
-        run: cp ./deploy/myapp.war /opt/tomcat/webapps/
+        run: cp ./deploy/github-action-test-spring-app.war /var/lib/tomcat10/webapps
         
       - name: Start Tomcat
         run: systemctl start tomcat10
