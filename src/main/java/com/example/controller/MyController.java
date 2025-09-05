@@ -9,7 +9,7 @@ public class MyController {
 
     @RequestMapping("/hello")
     public ModelAndView sayHello() {
-        String message = "Hello from Spring 6 MVC!";
-        return new ModelAndView("hello", "message", message);
+        String message = "Success";
+        return new ModelAndView("home", "message", message);
     }
 }
