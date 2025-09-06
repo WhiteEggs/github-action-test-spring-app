@@ -60,16 +60,22 @@ jobs:
       - name: Start Tomcat
         run: sudo systemctl start tomcat10
 
-      - name: Testing SSH connection to the server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          script: |
-            echo "Connected to the server!"
+        
       # - uses: actions/checkout@v4
       # - name: Copy war to server
       #   run: scp target/myapp.jar user@server:/path/to/deploy/
       # - name: Restart app
       #   run: ssh user@server 'systemctl restart myapp.service'
+
+  ssh:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Testing SSH connection to the server
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        script: |
+          echo "Connected to the server!"
