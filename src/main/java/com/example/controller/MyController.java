@@ -12,6 +12,6 @@ public class MyController {
     @RequestMapping("/hello")
     public ModelAndView sayHello() {
         String message = "Success";
-        return new ModelAndView("home", Map.of("message", message, "updatedAt", "2025/09/08 10:16"));
+        return new ModelAndView("home", Map.of("message", message, "updatedAt", "2025/09/08 11:24"));
     }
 }
