@@ -31,7 +31,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         source: "target/github-action-test-spring-app.war"
-        target: "./deploy"
+        target: "~/deploy/"
     
     - name: Deploy to Server
       uses: appleboy/ssh-action@v1.0.3
@@ -42,5 +42,5 @@ jobs:
         script: |
           echo "Deploying WAR file"
           sudo systemctl stop tomcat10
-          sudo cp ./deploy/github-action-test-spring-app.war /var/lib/tomcat10/webapps
+          sudo cp ./deploy/target/github-action-test-spring-app.war /var/lib/tomcat10/webapps
           sudo systemctl start tomcat10
